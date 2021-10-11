@@ -1,9 +1,11 @@
+from sklearn import metrics
 from teradataml import create_context
 from teradataml.dataframe.dataframe import DataFrame
 from teradataml.dataframe.copy_to import copy_to_sql
 
 import os
 import joblib
+import json
 import pandas as pd
 
 
@@ -26,7 +28,7 @@ def score(data_conf, model_conf, **kwargs):
 
     # create result dataframe and store in Teradata
     y_pred = pd.DataFrame(y_pred, columns=["pred"])
-    y_pred["PatientId"] = predict_df["PatientId"].values
+    y_pred["Id"] = predict_df["Id"].values
     copy_to_sql(df=y_pred, table_name=data_conf["predictions"], index=False, if_exists="replace")
 
 
@@ -49,3 +51,4 @@ class ModelScorer(object):
                                        clazz=str(int(pred))).inc()
 
         return pred
+
