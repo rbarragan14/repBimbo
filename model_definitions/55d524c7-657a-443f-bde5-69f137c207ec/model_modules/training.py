@@ -11,7 +11,7 @@ import os
 def train(data_conf, model_conf, **kwargs):
     hyperparams = model_conf["hyperParameters"]
 
-    create_context(host=data_conf["host"], username=os.environ['TD_USERNAME'], password=os.environ['TD_PASSWORD'])
+    create_context(host=data_conf["AOA_CONN_HOST"], username=os.environ['AOA_CONN_USERNAME'], password=os.environ['AOA_CONN_PASSWORD'])
 
     #feature_names = ['estado_civil_jefe_CASADO_accidentes','nivel_Operativo_accidentes', 'antiguedad_empresa_accidentes',
     #      'masculino_planta','severidad_con_seguras_ci_dSegura','total_reportes_accidentes','severidad_con_Seguras_ci_cBajo','supervisor_planta',
@@ -20,7 +20,7 @@ def train(data_conf, model_conf, **kwargs):
     #target_name = '__target__'
 
     feature_names = ['estado_civil_jefe_CASADO_accidentes','nivel_Operativo_accidentes', 'antiguedad_empresa_accidentes']
-          
+
     target_name = '__target__'
 
     # read training dataset from Teradata and convert to pandas
