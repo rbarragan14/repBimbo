@@ -14,7 +14,7 @@ def train(data_conf, model_conf, **kwargs):
     create_context(
         host=os.environ["AOA_CONN_HOST"],
         username=os.environ["AOA_CONN_USERNAME"],
-        password=os.environ["AOA_CONN_PASSWORD"]
+        password=os.environ["AOA_CONN_PASSWORD"],
         database=data_conf["schema"])
 
     feature_names = ['estado_civil_jefe_CASADO_accidentes','nivel_Operativo_accidentes', 'antiguedad_empresa_accidentes',
