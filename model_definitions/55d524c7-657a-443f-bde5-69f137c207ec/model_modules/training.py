@@ -14,13 +14,13 @@ def train(data_conf, model_conf, **kwargs):
     create_context(
         host=os.environ["AOA_CONN_HOST"],
         username=os.environ["AOA_CONN_USERNAME"],
-        password=os.environ["AOA_CONN_PASSWORD"],
+        password=os.environ["AOA_CONN_PASSWORD"]
         database=data_conf["schema"])
 
     feature_names = ['estado_civil_jefe_CASADO_accidentes','nivel_Operativo_accidentes', 'antiguedad_empresa_accidentes',
           'masculino_planta','severidad_con_seguras_ci_dSegura','total_reportes_accidentes','severidad_con_Seguras_ci_cBajo','supervisor_planta',
-          'edad_planta','pais_COSTA RICA_value_1_0','mes_anterior_value_1','accidentes_total_value_1','pais_COLOMBIA_value_1_0',
-          'pais_HONDURAS_value_1_0','lugar_de_trabajo_PLANTA_value_1_0','pais_VENEZUELA_value_1_0','pais_EL SALVADOR_value_1_0','pais_PANAMA_value_1_0']
+          'edad_planta','pais_COSTA_RICA_value_1_0','mes_anterior_value_1','accidentes_total_value_1','pais_COLOMBIA_value_1_0',
+          'pais_HONDURAS_value_1_0','lugar_de_trabajo_PLANTA_value_1_0','pais_VENEZUELA_value_1_0','pais_EL_SALVADOR_value_1_0','pais_PANAMA_value_1_0']
     target_name = '__target__'
 
     #feature_names = ['estado_civil_jefe_CASADO_accidentes','nivel_Operativo_accidentes', 'antiguedad_empresa_accidentes']
