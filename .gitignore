@@ -20,3 +20,8 @@ metastore_db/
 
 models/
 .aoa/
+
+*.tgz
+*.tar.gz
+*.zip
+*.rar
