@@ -1,5 +1,6 @@
 {
-  "hyperParameters": {
-    "n_neighbors": 3
-  }
+	"hyperParameters": {
+		"penalty": "l2",
+		"random_state": 1337
+	}
 }

@@ -53,3 +53,5 @@ def train(data_conf, model_conf, **kwargs):
     skl_to_pmml(pipeline=model, col_names=feature_names, target_name=target_name, pmml_f_name="artifacts/output/model.pmml")
 
     print("Saved trained model")
+
+    # TODO: add stats recording
