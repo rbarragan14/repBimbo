@@ -1,11 +1,20 @@
-# Sample Model 
+# Modelo RRHH Accidentalidad
 
-Add you model details here..
+Modelo de regresión logística para predecir la accidentalidad.
 
-## Dataset Description
+## Descripción de los Datos
 
-## Training 
+Los datos ya se encuentran curados y preparados en la instancia de Vantage en las tablas/vistas `ACC_TRAIN`, `ACC_TEST` y `ACC_PREDICTIONS`.
 
-## Evaluation
+
+## Entrenamiento
+
+El entrenamiento se realiza en el archivo [training.py](./model_modules/training.py)
+
+## Evaluación
+
+ se realiza en el archivo [training.py](./model_modules/training.py)
 
 ## Scoring
+
+El entrenamiento se realiza en el archivo [training.py](./model_modules/training.py)
