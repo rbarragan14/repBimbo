@@ -2,12 +2,11 @@ from sklearn import metrics
 from teradataml import create_context
 from teradataml.dataframe.dataframe import DataFrame
 from teradataml.dataframe.copy_to import copy_to_sql
-
+from aoa.stats import stats
 import os
 import joblib
 import json
 import pandas as pd
-
 
 def score(data_conf, model_conf, **kwargs):
     model = joblib.load("artifacts/input/model.joblib")
@@ -17,21 +16,27 @@ def score(data_conf, model_conf, **kwargs):
                    password=os.environ["AOA_CONN_PASSWORD"],
                    database=data_conf["schema"] if "schema" in data_conf and data_conf["schema"] != "" else None)
 
-    predict_df = DataFrame(data_conf["table"])
+    features_tdf = DataFrame(data_conf["table"])
 
+    print("Starting scoring...")
+    
     # convert to pandas to use locally
-    predict_df = predict_df.to_pandas()
+    features_df = features_tdf.to_pandas()
 
     print("Scoring")
-    y_pred = model.predict(predict_df[model.feature_names])
+    y_pred = model.predict(features_df[model.feature_names])
 
     print("Finished Scoring")
 
     # create result dataframe and store in Teradata
-    y_pred = pd.DataFrame(y_pred, columns=["pred"])
-    y_pred["Id"] = predict_df["Id"].values
+    y_pred = pd.DataFrame(y_pred, columns=["prediction"])
+    y_pred["id"] = features_df["id"].values
     copy_to_sql(df=y_pred, table_name=data_conf["predictions"], index=False, if_exists="replace")
 
+    predictions_tdf = DataFrame.from_query("SELECT id, prediction AS ptarget FROM {}".format(data_conf["predictions"]))
+    stats.record_scoring_stats(features_tdf, predictions_tdf)
+    
+    print("All done!")
 
 # Add code required for RESTful API
 class ModelScorer(object):

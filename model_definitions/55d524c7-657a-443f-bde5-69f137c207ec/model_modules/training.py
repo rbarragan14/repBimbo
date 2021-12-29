@@ -1,9 +1,11 @@
-from sklearn.preprocessing import MinMaxScaler
 from sklearn.pipeline import Pipeline
 from nyoka import skl_to_pmml
 from teradataml import create_context
 from teradataml.dataframe.dataframe import DataFrame
 from sklearn.linear_model import LogisticRegression
+from aoa.stats import stats
+from aoa.util.artefacts import save_plot
+import matplotlib.pyplot as plt
 import joblib
 import os
 
@@ -17,23 +19,34 @@ def train(data_conf, model_conf, **kwargs):
         password=os.environ["AOA_CONN_PASSWORD"],
         database=data_conf["schema"])
 
-    feature_names = ['estado_civil_jefe_CASADO_accidentes','nivel_Operativo_accidentes', 'antiguedad_empresa_accidentes',
-          'masculino_planta','severidad_con_seguras_ci_dSegura','total_reportes_accidentes','severidad_con_Seguras_ci_cBajo','supervisor_planta',
-          'edad_planta','pais_COSTA_RICA_value_1_0','mes_anterior_value_1','accidentes_total_value_1','pais_COLOMBIA_value_1_0',
-          'pais_HONDURAS_value_1_0','lugar_de_trabajo_PLANTA_value_1_0','pais_VENEZUELA_value_1_0','pais_EL_SALVADOR_value_1_0','pais_PANAMA_value_1_0']
-    target_name = '__target__'
+    feature_names = ['estado_civil_jefe_CASADO_accidentes',
+                     'nivel_Operativo_accidentes',
+                     'antiguedad_empresa_accidentes',
+                     'masculino_planta',
+                     'Severidad_con_Seguras_ci_dSegura',
+                     'total_reportes_accidentes',
+                     'Severidad_con_Seguras_ci_cBajo',
+                     'Supervisor_planta',
+                     'edad_planta',
+                     'pais_COSTA_RICA_value_1_0',
+                     'mes_anterior_value_1',
+                     'accidentes_total_value_1',
+                     'pais_COLOMBIA_value_1_0',
+                     'pais_HONDURAS_value_1_0',
+                     'lugar_de_trabajo_PLANTA_value_1_0',
+                     'pais_VENEZUELA_value_1_0',
+                     'pais_EL_SALVADOR_value_1_0',
+                     'pais_PANAMA_value_1_0']
 
-    #feature_names = ['estado_civil_jefe_CASADO_accidentes','nivel_Operativo_accidentes', 'antiguedad_empresa_accidentes']
-
-    #target_name = '__target__'
+    target_name = 'ptarget'
 
     # read training dataset from Teradata and convert to pandas
-    train_df = DataFrame(data_conf["table"])
-    train_df = train_df.select([feature_names + [target_name]])
+    train_tdf = DataFrame(data_conf["table"])
+    train_df = train_tdf.select([feature_names + [target_name]])
     train_df = train_df.to_pandas()
 
     # split data into X and y
-    X_train = train_df.drop(target_name, 1)
+    X_train = train_df.drop(target_name, axis=1)
     y_train = train_df[target_name]
 
     print("Starting training...")
@@ -54,4 +67,20 @@ def train(data_conf, model_conf, **kwargs):
 
     print("Saved trained model")
 
-    # TODO: add stats recording
+    # record training statistics   
+    importance_values = model[0].coef_[0]
+    feature_importance = {feature_names[key]: value for (key, value) in enumerate(importance_values)}
+    
+    plt.bar(range(len(importance_values)), importance_values)
+    plt.xticks(ticks = range(len(importance_values)), labels = feature_names, rotation = 'vertical')
+    save_plot('Feature Importance')
+    
+    stats.record_training_stats(train_tdf,
+                       features=feature_names,
+                       predictors=[target_name],
+                       categorical=[target_name],
+                       importance=feature_importance,
+                       category_labels={target_name: {0: "Falso", 1: "Verdadero"}})
+
+    
+    print("All done!")
