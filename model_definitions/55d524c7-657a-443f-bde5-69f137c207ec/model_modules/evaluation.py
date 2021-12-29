@@ -62,10 +62,12 @@ def evaluate(data_conf, model_conf, **kwargs):
     with open("artifacts/output/metrics.json", "w+") as f:
         json.dump(evaluation, f)
 
-    metrics.ConfusionMatrixDisplay.from_predictions(y_test, y_pred)
+    #metrics.ConfusionMatrixDisplay.from_predictions(y_test, y_pred)
+    metrics.plot_confusion_matrix(model, X_test, y_test)
     save_plot('Confusion Matrix')
 
-    metrics.RocCurveDisplay.from_predictions(y_test, y_prob)
+    #metrics.RocCurveDisplay.from_predictions(y_test, y_prob)
+    metrics.plot_roc_curve(model, X_test, y_test)
     save_plot('ROC Curve')
 
     importance_values = model[0].coef_[0]
