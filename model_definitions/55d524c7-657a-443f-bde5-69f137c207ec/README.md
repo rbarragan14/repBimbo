@@ -130,6 +130,6 @@ El scoring en modo RESTful está soportado a través de la clase `ModelScorer` q
 En este ejemplo se incluyen diversos notebooks donde se muestran diversos aspectos del modelo
 
 - [ModeloAccidentalidad.ipynb](./notebooks/ModeloAccidentalidad.ipynb): Descripción del proceso de generación del modelo.
-- [CargarDatos.ipynb](./notebooks/CargarDatos.ipynb): Ejemplo de carga y preparación de los datos del modelo.
+- [CargaDatos.ipynb](./notebooks/CargaDatos.ipynb): Ejemplo de carga y preparación de los datos del modelo.
 - [ComprobarBatch.ipynb](./notebooks/ComprobarBatch.ipynb): Ejemplo que permite comprobar las predicciones realizadas en el modo batch.
 - [InVantageScoring.ipynb](./notebooks/InVantageScoring.ipynb): Ejemplo que permite comprobar las predicciones realizadas en el modo IVSM.
