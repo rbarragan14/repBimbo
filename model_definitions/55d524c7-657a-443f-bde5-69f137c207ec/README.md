@@ -101,28 +101,28 @@ El scoring en modo RESTful está soportado a través de la clase `ModelScorer` q
     curl -X POST http://<service-name>/predict \
         -H "Content-Type: application/json" \
         -d '{
-              "data": {
-                "ndarray": [
-                  0.021,
-                  0.186,
-                  0.088,
-                  0.192396525,
-                  0.025615116,
-                  0,
-                  0.25346642,
-                  0.191203309,
-                  0.37474141,
-                  0,
-                  1,
-                  0,
-                  1,
-                  0,
-                  1,
-                  1,
-                  0,
-                  0
-                ]
-              }
+                "data": {
+                    "ndarray": [
+                        0.021,
+                        0.186,
+                        0.088,
+                        0.192396525,
+                        0.025615116,
+                        0,
+                        0.25346642,
+                        0.191203309,
+                        0.37474141,
+                        0,
+                        1,
+                        0,
+                        1,
+                        0,
+                        1,
+                        1,
+                        0,
+                        0
+                    ]
+                }
             }' 
 
 ## Notebooks
