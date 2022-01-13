@@ -1,6 +1,7 @@
 {
 
   "hyperParameters": {
-    "example_param": 0.1
+    "penalty": "l2",
+    "random_state": 1337
   }
 }
