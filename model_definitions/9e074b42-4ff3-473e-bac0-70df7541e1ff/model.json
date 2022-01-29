@@ -1,0 +1,17 @@
+{
+    "id": "9e074b42-4ff3-473e-bac0-70df7541e1ff",
+    "name": "Modelo Covid19",
+    "description": "Modelo probabilidad covid 19",
+    "language": "python",
+    "automation": {
+        "training": {
+            "engine": "pyspark"
+        },
+        "evaluation": {
+            "engine": "pyspark"
+        },
+        "deployment": {
+            "engine": "pyspark"
+        }
+    }
+}
