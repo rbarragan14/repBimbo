@@ -4,5 +4,6 @@
     "maxIter": 10,
     "regParam": 0.3,
     "elasticNetParam": 0.8
+    "nuevo parametro": 900
   }
 }
